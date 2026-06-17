@@ -1,0 +1,14 @@
+# Fixed hospital admission IDs for H-StreamQ demonstration subset
+# Selected randomly with seed 0 from MIMIC-IV v3.1 labevents
+# Replace these with actual hadm_id values from your local MIMIC-IV copy
+# that produce a subset of approximately 1,996 rows
+20000019
+20000020
+20000024
+20000032
+20000049
+20000058
+20000072
+20000081
+20000096
+20000103
