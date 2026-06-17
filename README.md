@@ -4,7 +4,7 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/)
 [![Kafka 3.x](https://img.shields.io/badge/Kafka-3.x-orange.svg)](https://kafka.apache.org/)
 
-**H-StreamQ** is a proof-of-concept adaptive pipeline for real-time healthcare data quality monitoring built on Apache Kafka. It ingests streaming clinical data, detects missing values, outliers, and duplicates, applies correction strategies, and computes a composite Data Quality Score (DQS).
+**H-StreamQ** is a proof-of-concept adaptive pipeline for streaming-oriented healthcare data quality monitoring built on Apache Kafka. It ingests streaming clinical data, detects missing values, outliers, and duplicates, applies correction strategies, and computes a composite Data Quality Score (DQS).
 
 > **Paper:** Soomro GM, Amur ZH, Krayem S, Chramcov B, Jasek R, Allahwerdi I. H-StreamQ: A Proof-of-Concept Kafka-Based Pipeline for Adaptive Data Quality Monitoring in Healthcare Streaming Environments. *SoftwareX* (under review).
 
@@ -23,7 +23,7 @@
 ### 2. Clone and install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/H-StreamQ.git
+git clone https://github.com/GulMuhammadSoomro/H-StreamQ.git
 cd H-StreamQ
 conda create -n hstreamq python=3.9
 conda activate hstreamq
@@ -43,8 +43,8 @@ bin/zookeeper-server-start.sh config/zookeeper.properties
 bin/kafka-server-start.sh config/server.properties
 
 # Create topics (in a new terminal)
-bin/kafka-topics.sh --create --topic hstreamq-input --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
-bin/kafka-topics.sh --create --topic hstreamq-output --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+bin/kafka-topics.sh --create --topic hstreamq-input --bootstrap-server localhost:9093 --partitions 1 --replication-factor 1
+bin/kafka-topics.sh --create --topic hstreamq-output --bootstrap-server localhost:9093 --partitions 1 --replication-factor 1
 ```
 
 ### 4. Generate the MIMIC-IV demonstration subset
@@ -55,7 +55,7 @@ bin/kafka-topics.sh --create --topic hstreamq-output --bootstrap-server localhos
 python generate_demo_subset.py --input /path/to/your/labevents.csv --output data/demo_subset.csv
 ```
 
-This script uses seed 42 and selects records from 10 fixed hospital admissions (hadm_id values listed in `config/hadm_ids.txt`), producing a reproducible 1,996-row subset. The demonstration uses 200 records sampled from this subset.
+This script uses seed 42 and selects records from 10 fixed hospital admissions (hadm_id values listed in `hadm_ids.txt`), producing a reproducible 1,996-row subset. The demonstration uses 200 records sampled from this subset.
 
 ### 5. Run the demonstration
 
@@ -67,7 +67,7 @@ Run all cells in order. The notebook:
 1. Publishes 200 records to `hstreamq-input` in 20 batches of 10
 2. Processes each batch through the 7-component quality pipeline
 3. Publishes corrected records and DQS scores to `hstreamq-output`
-4. Generates Tables 4–6 and Figure 2 from the paper
+4. Generates Table 4 and Figure 2 from the paper
 
 ---
 
@@ -108,7 +108,7 @@ H-StreamQ/
 
 | Parameter | Value |
 |---|---|
-| Broker | localhost:9092 |
+| Broker | localhost:9093 |
 | Input topic | hstreamq-input |
 | Output topic | hstreamq-output |
 | Batch size | 10 records |
